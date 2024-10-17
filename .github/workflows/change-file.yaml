@@ -21,27 +21,28 @@ jobs:
     - name: Identify added file
       id: identify_file
       run: |
-        added_file=$(git diff --name-only --diff-filter=A HEAD^1 HEAD | grep 'values/values-.*.yaml' || true)
-        if [ -z "$added_file" ]; then
-          echo "No matching files added."
-          exit 0
-        fi
-        echo "ADDED_FILE=$added_file" >> $GITHUB_ENV
+        added_file=$(git diff --name-only --diff-filter=A HEAD^1 HEAD)
+        cat $added_file
+        #if [ -z "$added_file" ]; then
+          #echo "No matching files added."
+          #exit 0
+        #fi
+        #echo "ADDED_FILE=$added_file" >> $GITHUB_ENV
 
-    - name: Read version from added file
-      id: read_version
-      run: |
-        if [ -f "${{ env.ADDED_FILE }}" ]; then
-          version=$(grep 'version:' ${{ env.ADDED_FILE }} | awk '{print $2}')
-          echo "VERSION=$version" >> $GITHUB_ENV
-        else
-          echo "Added file not found: ${{ env.ADDED_FILE }}"
-          exit 1
-        fi
+    #- name: Read version from added file
+      #id: read_version
+      #run: |
+        #if [ -f "${{ env.ADDED_FILE }}" ]; then
+          #version=$(grep 'version:' ${{ env.ADDED_FILE }} | awk '{print $2}')
+          #echo "VERSION=$version" >> $GITHUB_ENV
+        #else
+          #echo "Added file not found: ${{ env.ADDED_FILE }}"
+          #exit 1
+        #fi
 
-    - name: version of file
-      run: |
-         echo "Version of file is ${{ env.VERSION }}"
+    #- name: version of file
+      #run: |
+        # echo "Version of file is ${{ env.VERSION }}"
           
     
     
