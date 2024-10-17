@@ -22,12 +22,7 @@ jobs:
       id: identify_file
       run: |
         added_file=$(git diff --name-only --diff-filter=A HEAD^1 HEAD)
-        cat $added_file
-        #if [ -z "$added_file" ]; then
-          #echo "No matching files added."
-          #exit 0
-        #fi
-        #echo "ADDED_FILE=$added_file" >> $GITHUB_ENV
+        echo "added files are $added_file"
 
     #- name: Read version from added file
       #id: read_version
