@@ -22,10 +22,10 @@ jobs:
       id: identify_file
       run: |
         git config --global --add safe.directory "$GITHUB_WORKSPACE"
-        echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
+        echo "name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | xargs)" >> $GITHUB_OUTPUT
 
     - name: List all changed files
-      run: |
+      run: | 
           echo ${{ steps.identify_file.outputs.files }}
           
 
