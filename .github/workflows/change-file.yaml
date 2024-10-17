@@ -21,7 +21,7 @@ jobs:
     - name: Identify added file
       id: identify_file
       run: |
-        added_file=$(git diff --name-only --diff-filter=A HEAD^1 HEAD | grep 'values/values-*.yaml' || true)
+        added_file=$(git diff --name-only --diff-filter=A HEAD^1 HEAD | grep 'values/values-.*.yaml' || true)
         if [ -z "$added_file" ]; then
           echo "No matching files added."
           exit 0
