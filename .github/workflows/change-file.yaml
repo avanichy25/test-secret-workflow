@@ -29,4 +29,9 @@ jobs:
           for file in ${ALL_CHANGED_FILES}; do
             echo "$file was changed"
           done
+          version=$(grep 'version:' $file | awk '{print $2}')
+          echo "VERSION=$version" >> $GITHUB_ENV
+
+          
+          
     
