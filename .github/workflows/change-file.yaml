@@ -20,17 +20,18 @@ jobs:
 
     - name: Identify added file
       id: identify_file
-      uses: tj-actions/changed-files@v45
+      run: |
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
 
     - name: List all changed files
       env:
-        ALL_CHANGED_FILES: ${{ steps.identify_file.outputs.all_changed_files }}
+        CHANGED_FILE: ${{ steps.identify_file.outputs.files }}
       run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-            version=$(basename $file | cut -d'-' -f2 | cut -d'.' -f1-3)
-            echo $version            
-          done
+          echo "change file is $CHANGED_FILE" 
+          VERSION=$(basename $CHANGED_FILE | cut -d'-' -f2 | cut -d'.' -f1-3)
+          echo "VERSION=$VERSION" >> GITHUB_ENV
+          echo "version is  ${{ env.VERSION }}"
           
 
           
