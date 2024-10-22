@@ -13,6 +13,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: List all environment variables
+      run: printenv
+      
     - name: Print TEST_URL environment variable
       run: |
         echo "The value of TEST_URL is: ${{ env.TEST_URL }}"
